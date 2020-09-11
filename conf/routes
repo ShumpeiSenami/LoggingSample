@@ -1,14 +1,24 @@
 
+
+# ホーム画面（ログイン時は書籍一覧表示）
 GET     /                           controllers.HomeController.index
-
+# ユーザー作成画面の表示
 GET     /signup                     controllers.SignUpController.index
-
+# ユーザー作成送信
 POST    /signup/register            controllers.SignUpController.register
-
+# ログイン認証画面表示
 GET     /auth                       controllers.AuthController.index
-
+# ログイン認証送信
 POST    /auth/login                 controllers.AuthController.login
-
+# ログアウト送信
 POST    /auth/logout                controllers.AuthController.logout
+# 書籍の詳細画面の表示
+GET     /auth/books/:id/get         controllers.GetBookController.index(id:Long)
+# 書籍作成画面の表示
+GET     /auth/books/create          controllers.CreateBookController.index
+# 書籍の作成
+POST    /auth/books/create          controllers.CreateBookController.create
+# 書籍情報の削除
+POST    /auth/books/:id/delete      controllers.DeleteBookController.delete(id:Long)
 
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

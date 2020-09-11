@@ -1,17 +1,35 @@
-@(currentUserOpt: Option[User])(implicit messagesProvider: MessagesProvider, flash: Flash, request: RequestHeader)
+@(currentUserOpt: Option[User], bookSeq: Seq[Books])(implicit messagesProvider: MessagesProvider, flash: Flash, request: RequestHeader)
 
   @main(Messages("Home"), currentUserOpt) {
 
     @if(currentUserOpt.isEmpty) {
       <div class="center jumbotron">
         <div class="text-center">
-          <h1>@Messages("WelcomeMessage")</h1>
           <a href="@routes.SignUpController.index()" class="btn btn-lg btn-primary">@Messages("SignUpNow")</a>
         </div>
       </div>
     } else {
       <p>UserName:  @currentUserOpt.get.name</p>
       <p>UserEmail:  @currentUserOpt.get.email</p>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>@Messages("Title")</th>
+            <th>@Messages("Roll")</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(book <- bookSeq){
+            <tr>
+              <td><a href="@routes.GetBookController.index(book.id.get)">@book.id.get</a></td>
+              <td>@book.title</td>
+              <td>@book.roll</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      <a href="@routes.CreateBookController.index()" class="btn btn-primary">Add Book</a>
     }
 
   }

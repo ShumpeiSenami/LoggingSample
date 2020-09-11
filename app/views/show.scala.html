@@ -1,0 +1,42 @@
+@import b3.vertical.fieldConstructor
+
+@(currentUserOpt: Option[User], book: Books)(implicit messagesProvider: MessagesProvider, request:RequestHeader, flash: Flash)
+
+@main("GetBook", currentUserOpt){
+    @if(currentUserOpt.isEmpty) {
+        <div class="center jumbotron">
+            <div class="text-center">
+                <h1>Welcome to Book</h1>
+                <a href="@routes.SignUpController.index()" class="btn btn-lg btn-primary">@Messages("SignUpNow")</a>
+            </div>
+        </div>
+    } else {
+        <p>UserName:  @currentUserOpt.get.name</p>
+        <p>UserEmail:  @currentUserOpt.get.email</p>
+        <table class="table table-bordered">
+            <tr>
+                <th>@Messages("Id")</th>
+                <td>@book.id.get</td>
+            </tr>
+            <tr>
+                <th>@Messages("Title")</th>
+                <td>@book.title</td>
+            </tr>
+            <tr>
+                <th>@Messages("Roll")</th>
+                <td>@book.roll</td>
+            </tr>
+            <tr>
+                <th>@Messages("Author")</th>
+                <td>@book.author</td>
+            </tr>
+        </table>
+        <a href="#" class="btn btn-default">@Messages("UpdateBook")</a>
+        @b3.formCSRF(routes.DeleteBookController.delete(book.id.get)){
+            @b3.submit('class -> "btn btn-default"){
+                @Messages("DeleteBook")
+            }
+        }
+    }
+
+}
