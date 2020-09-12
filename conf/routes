@@ -18,7 +18,14 @@ GET     /auth/books/:id/get         controllers.GetBookController.index(id:Long)
 GET     /auth/books/create          controllers.CreateBookController.index
 # 書籍の作成
 POST    /auth/books/create          controllers.CreateBookController.create
+# 書籍編集画面の表示
+GET     /auth/books/:id/update      controllers.UpdateBookController.index(id:Long)
+# 書籍の編集内容送信
+POST    /auth/books/update          controllers.UpdateBookController.update
+
 # 書籍情報の削除
 POST    /auth/books/:id/delete      controllers.DeleteBookController.delete(id:Long)
+
+
 
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

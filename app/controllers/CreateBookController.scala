@@ -8,6 +8,7 @@ import service.UserService
 import models.Books
 import scalikejdbc.AutoSession
 
+@Singleton
 class CreateBookController@Inject()(val userService: UserService,
                                     components:ControllerComponents)
   extends AbstractController (components)
